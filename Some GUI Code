@@ -1,0 +1,35 @@
+	--variables--
+
+
+local playButton = script.Parent.SideBar.PlayButton
+local optionButton = script.Parent.SideBar.OptionButton
+local creditButton = script.Parent.SideBar.CreditButton
+local optionListFrame = script.Parent.OptionListFrame
+local creditFrame = script.Parent.CreditFrame
+local sideBar = script.Parent.SideBar
+local serverListFrame = script.Parent.ServerListFrame
+
+
+
+optionButton.MouseButton1Click:Connect(function()
+	
+	optionListFrame.Visible = true
+	sideBar.Visible = false
+end)
+
+
+
+creditButton.MouseButton1Click:Connect(function()
+	
+	creditFrame.Visible = true
+	sideBar.Visible = false
+	
+end)
+
+playButton.MouseButton1Click:Connect(function()
+	
+	serverListFrame.Visible = true
+	sideBar.Visible = false
+	
+	
+end)
