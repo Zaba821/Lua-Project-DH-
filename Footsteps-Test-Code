@@ -1,0 +1,103 @@
+game.Players.PlayerAdded:Connect(function(plr)
+	plr.CharacterAdded:Connect(function(char)
+		local contentProvider = game:GetService("ContentProvider")
+		local hum = char.Humanoid
+		
+		local soundIds = {
+			concrete = "rbxassetid://6501217328 Concrete";
+			dirtORgravel = "rbxassetid://6501217328 DirtORgravel";
+			metal = "rbxassetid://6501217328 Metal";
+			wood = "rbxassetid://6501217328 Wood";
+			woodplanks = "rbxassetid://6501217328 Plank";
+			grass = "rbxassetid://6501217328 Grass";
+			brick = "rbxassetid://6501217328 Brick";
+			
+			
+			
+		}
+		
+		local leftSounds = {}
+		local rightSounds = {}
+		
+		local function convertToSoundObj (id)
+			local sound = Instance.new("Sound")
+			local urlAndMaterial = string.split(id, " ")
+			id = urlAndMaterial[1]
+			local name = urlAndMaterial[2]
+			sound.SoundId = id
+			sound.Name = name
+			sound.EmitterSize = 3
+			sound.MaxDistance = 30
+			
+			
+			
+			
+		end
+		
+		
+		for _, v in pairs (soundIds) do 
+			local sound = convertToSoundObj(v)
+			sound.Parent = char.LeftFoot
+			leftSounds[#leftSounds + 1] = sound
+		end
+		
+		for _, v in pairs (soundIds) do 
+			local sound = convertToSoundObj(v)
+			sound.Parent = char.RightFoot
+			rightSounds[#rightSounds + 1] = sound
+		end	
+		
+		contentProvider:PreloadAsync(leftSounds)
+		contentProvider:PreloadAsync(rightSounds)
+		
+		
+		
+	end)
+	
+	
+	
+	
+end)
+
+game:GetService("ReplicatedStorage").Event.OnServerEvent:Connect(function(plr, foot)
+	local char = plr.Character
+	local hum = char.Humanoid
+	
+	local function findSound(obj, name)
+		local s = obj:FindFirstChild(name)
+		return s
+	end
+	
+	local function soundPlay(foot, material)
+		if material == "Ground" then material = "dirtORgravel" end
+		if material == "Mud" then material = "Brick" end
+		if foot:FindFirstChild(material) == nil then return end
+		findSound(foot, material):Play()
+	end
+	
+	soundPlay(foot, hum.FloorMaterial.Name)
+	
+	
+	
+end)
+
+-- Services
+local players = game:GetService("Players")
+
+-- Functions
+players.PlayerAdded:Connect(function(player)
+    player.CharacterAdded:Connect(function(character)
+        
+        local rootPart = character:WaitForChild("HumanoidRootPart")
+        
+        local footstepsSound = Instance.new("Sound")
+        footstepsSound.Name = "Footsteps"
+        footstepsSound.Volume = 0.25
+        footstepsSound.RollOffMaxDistance = 30
+        footstepsSound.RollOffMode = Enum.RollOffMode.Linear
+        footstepsSound.PlayOnRemove = true
+        
+        footstepsSound.Parent = rootPart
+        
+    end)
+end)
