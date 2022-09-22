@@ -1,0 +1,120 @@
+-- Part Explosion Script
+local explosion = Instance.new("Explosion")
+explosion.BlastRadius = 10
+explosion.ExplosionType = Enum.ExplosionType.NoCraters -- damages terrain
+explosion.Position = workspace.artilleryTESTS.testArtillery.Position
+
+
+-- Explosion sounds
+zoomInThree = workspace.artilleryTESTS.testArtillery.zoomInThree
+explosionOne = workspace.artilleryTESTS.testArtillery.closeOneExplo
+distantFire = workspace.artilleryTESTS.testArtillery.fireDistance
+farZoomIn = workspace.artilleryTESTS.testArtillery.farZoomIn
+distantExplode = workspace.artilleryTESTS.testArtillery.exploDistant
+-- Roll offs
+explosionOne.RollOffMode = Enum.RollOffMode.Linear
+explosionOne.RollOffMaxDistance = 200
+explosionOne.RollOffMinDistance = 10
+zoomInThree.RollOffMode = Enum.RollOffMode.Linear
+zoomInThree.RollOffMaxDistance = 200
+zoomInThree.RollOffMinDistance = 10
+farZoomIn.RollOffMode = Enum.RollOffMode.Linear
+farZoomIn.RollOffMinDistance = 200
+farZoomIn.RollOffMaxDistance = 2000
+distantExplode.RollOffMode = Enum.RollOffMode.Linear
+distantExplode.RollOffMinDistance = 200
+distantExplode.RollOffMaxDistance = 2000
+
+wait(5)
+
+local n = 0
+
+while n == 0 do
+
+distantFire:Play() =
+
+while distantFire.IsPlaying == true do -- first fire
+	wait (.3) -- to prevent memory leak
+	end
+
+--zoomInThree:Play() -- PlayCLOSEzoomin
+farZoomIn:Play() -- PlayFARzoomin
+
+while zoomInThree.IsPlaying or farZoomIn.IsPlaying == true do -- Zoom in explosion
+	wait (.1) -- Prevent Memory leak
+	end
+explosionOne:Play() -- PlayCLOSEexplosion
+distantExplode:Play() -- PlayFARexplosion
+
+	explosion.Parent = game.Workspace -- Explode Part
+	
+	wait(10)
+end
+
+
+----------------SECOND TEST CODE-------------------------
+
+local player = game.Players.LocalPlayer
+
+print "test 1"
+--while true do
+	-- if player is 10 studs away from model
+	--if GetDistance(modelPrimaryPart, humanoidRootPart) > 10 then
+		-- stop
+--	end
+--end
+
+
+-- Part Explosion Script
+local explosion = Instance.new("Explosion")
+explosion.BlastRadius = 10
+explosion.ExplosionType = Enum.ExplosionType.NoCraters -- damages terrain
+explosion.Position = workspace.artilleryTESTS.testArtillerytwo.Position
+player = game.Players:GetPlayers()
+
+-- Explosion sounds
+zoomInThree = workspace.artilleryTESTS.testArtillerytwo.zoomInThree
+explosionOne = workspace.artilleryTESTS.testArtillerytwo.closeOneExplo
+distantFire = workspace.artilleryTESTS.testArtillerytwo.fireDistance
+farZoomIn = workspace.artilleryTESTS.testArtillerytwo.farZoomIn
+distantExplode = workspace.artilleryTESTS.testArtillerytwo.exploDistant
+-- Roll offs
+explosionOne.RollOffMode = Enum.RollOffMode.Linear
+explosionOne.RollOffMaxDistance = 200
+explosionOne.RollOffMinDistance = 30
+zoomInThree.RollOffMode = Enum.RollOffMode.Linear
+zoomInThree.RollOffMaxDistance = 200
+zoomInThree.RollOffMinDistance = 30
+farZoomIn.RollOffMode = Enum.RollOffMode.Linear
+farZoomIn.RollOffMinDistance = 200
+--farZoomIn.RollOffMaxDistance = 1000
+distantExplode.RollOffMode = Enum.RollOffMode.Linear
+distantExplode.RollOffMinDistance = 200
+--distantExplode.RollOffMaxDistance = 1000
+wait(3)
+wait(5)
+
+distantFire:Play() -- Play first fire sound
+
+while distantFire.IsPlaying == true do -- first fire
+	wait (.3) -- to prevent memory leak
+	end
+
+--zoomInThree:Play() -- PlayCLOSEzoomin
+--farZoomIn:Play() -- PlayFARzoomin
+-- PlayFARzoomin
+print(player:DistanceFromCharacter(workspace.artilleryTESTS.testArtillerytwo.Head.Position))
+
+if player:DistanceFromCharacter(workspace.artilleryTESTS.testArtillerytwo.Head.Position) >= farZoomIn.RollOffMinDistance then
+	farZoomIn:Play()
+end
+while zoomInThree.IsPlaying or farZoomIn.IsPlaying == true do -- Zoom in explosion
+	wait (.1) -- Prevent Memory leak
+	print "broken?"
+	end
+--explosionOne:Play() -- PlayCLOSEexplosion
+distantExplode:Play() -- PlayFARexplosion
+
+
+
+explosion.Parent = game.Workspace -- Explode Part
